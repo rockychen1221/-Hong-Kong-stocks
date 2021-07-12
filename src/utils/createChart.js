@@ -90,16 +90,16 @@ export function createChart2(domId, legendList, xAxis, seriesList) {
         series: seriesList
     };
     // seriesList格式
-    // [
-    //     {
-    //         name: '', // 名称与legendList对应
-    //         type: 'bar', // 图标类型
-    //         emphasis: {
-    //             focus: 'series'
-    //         },
-    //         data: datasets.leftMoneyCount.data // 数据
-    //     },
-    // ]
+    [
+        {
+            name: '', // 名称与legendList对应
+            type: 'bar', // 图标类型
+            emphasis: {
+                focus: 'series'
+            },
+            data: datasets.leftMoneyCount.data // 数据
+        },
+    ]
 
     myChart.setOption(option);
 }

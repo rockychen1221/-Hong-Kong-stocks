@@ -82,7 +82,6 @@
         </template>
       </el-table-column>
     </el-table-column>
-
     <el-table-column label="交易成本">
       <el-table-column
           prop="交易万元佣金"
@@ -109,26 +108,25 @@
           width="110">
       </el-table-column>
     </el-table-column>
-
-    <!--    <el-table-column-->
-    <!--        prop="软件下载"-->
-    <!--        label="软件下载">-->
-    <!--      <template #default="scope">-->
-    <!--        <a :href="scope.row.软件下载" target="_blank">-->
-    <!--          <el-button size="small" type="primary">下载<i class="el-icon-download el-icon&#45;&#45;right"></i></el-button>-->
-    <!--        </a>-->
-    <!--      </template>-->
-    <!--    </el-table-column>-->
-    <!--    <el-table-column-->
-    <!--        prop="开户链接"-->
-    <!--        label="开户链接">-->
-    <!--      <template #default="scope">-->
-    <!--        <a v-if="scope.row.开户链接" :href="scope.row.开户链接" target="_blank">-->
-    <!--          开户链接-->
-    <!--        </a>-->
-    <!--        <span v-else>开户麻烦,详询</span>-->
-    <!--      </template>-->
-    <!--    </el-table-column>-->
+       <!-- <el-table-column
+           prop="软件下载"
+           label="软件下载">
+         <template #default="scope">
+           <a :href="scope.row.软件下载" target="_blank">
+             <el-button size="small" type="primary">下载<i class="el-icon-download el-icon&#45;&#45;right"></i></el-button>
+           </a>
+         </template>
+    </el-table-column> -->
+       <el-table-column
+           prop="开户链接"
+           label="开户链接">
+         <template #default="scope">
+           <a v-if="scope.row.开户链接" :href="scope.row.开户链接" target="_blank">
+             开户链接
+           </a>
+           <span v-else>开户麻烦,详询</span>
+         </template>
+     </el-table-column>
   </el-table>
 </template>
 

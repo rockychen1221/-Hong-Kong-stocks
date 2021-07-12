@@ -284,7 +284,7 @@ function download(filename, text) {
   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + 'export default ' + encodeURIComponent(text));
   element.setAttribute('download', filename);
 
-  element.style.display = 'none';
+  // element.style.display = 'none';
   document.body.appendChild(element);
 
   element.click();
@@ -341,7 +341,7 @@ export function 历史收益曲线计算(打新记录) {
   }
   // 第一次申购新股
   收益数组对象.unshift({
-    日期: '2020/4/14',
+    日期: '2021/8/1',
     利润: 0,
   });
   // 冒泡排序

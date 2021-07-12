@@ -162,6 +162,7 @@
   <div id="main" style="width: 100%;height:400px;"></div>
 
   <h3>券商收益</h3>
+  <div id="main2" style="width: 100%;height:400px;"></div>
 
 </template>
 
@@ -172,7 +173,7 @@ import ipoHistory from '../assets/data'
 import data from '../assets/stockList';
 import brokerList from "../assets/brokerList";
 import { 获取IPO数据, 合并IPO数据, 计算打新记录, 历史收益曲线计算 } from '../utils/CreateBroker'
-import { createChart } from '../utils/createChart'
+import { createChart, createChart2 } from '../utils/createChart'
 
 export default {
   name: 'index',
@@ -195,7 +196,8 @@ export default {
         收益日期,
         收益利润,
       } = 历史收益曲线计算(brokerObj.打新记录);
-      createChart('main', 收益日期, 收益利润, 'line', '收益');
+      createChart('main', 收益日期, 收益利润);
+      // createChart2('main2', 收益利润, 'line', '收益');
     });
 
     return {
