@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 100vw;height: 100vh;background: #fff;overflow: hidden;">
+    <div style="background: #fff;overflow: hidden;">
         <img src="../assets/404.png" alt="" class="img"/>
         <div class="nof">页面丢失，这是一个 404 错误页面。</div>
         <div class="nof-text">网络错误 / 页面已被删除 / 被大量访问</div>
@@ -15,7 +15,7 @@
 <style scoped lang="less">
     .img{
         width: 950px;
-        height: 462px;
+        height: 382px;
         display: block;
         margin: 129px auto 70px;
     }

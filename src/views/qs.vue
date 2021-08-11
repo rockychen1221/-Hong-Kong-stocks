@@ -142,7 +142,7 @@ import { reactive } from 'vue';
 export default {
   name: 'qs',
   setup() {
-    const qsArr = [ '华泰', '盈立', '老虎', '辉立', '恒大', '富途', '富昌', '耀才', '尊嘉', '有鱼', '青石', '华赢',
+    const qsArr = [ '华泰', '盈立', '老虎', '辉立', '富途', '富昌', '耀才', '尊嘉', '有鱼', '青石', '华赢',
       '艾德', '阿尔法', '易昇', '方德', '富元', '东财', '华盛通', '微牛'];
     let qsList = reactive([]);
     qsList = qsArr.map(ele => {
