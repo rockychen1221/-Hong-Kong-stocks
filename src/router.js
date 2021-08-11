@@ -18,6 +18,11 @@ const routes = [
     name: 'list',
     component: () => import("./views/list.vue"),
   },
+  {
+    path: '/hkdd',
+    name: 'hkdd',
+    component: () => import("./views/hkdd.vue"),
+  },
   // 配置404页面
   {
     path: "/:catchAll(.*)",

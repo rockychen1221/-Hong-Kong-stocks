@@ -161,8 +161,8 @@
   <p>股票未中签或股票出售后才记录收益</p>
   <div id="main" style="width: 100%;height:400px;"></div>
 
-  <h3>券商收益</h3>
-  <div id="main2" style="width: 100%;height:400px;"></div>
+  <!-- <h3>券商收益</h3>
+  <div id="main2" style="width: 100%;height:400px;"></div> -->
 
 </template>
 

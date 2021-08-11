@@ -1,48 +1,54 @@
 <template>
   <el-menu
-      :default-active="activeIndex"
-      class="el-menu-demo"
-      mode="horizontal"
-      @select="handleSelect"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b">
+    :default-active="activeIndex"
+    class="el-menu-demo"
+    mode="horizontal"
+    @select="handleSelect"
+    background-color="#545c64"
+    text-color="#fff"
+    active-text-color="#ffd04b"
+  >
     <el-menu-item index="首页">首页</el-menu-item>
     <el-menu-item index="申购记录">申购记录</el-menu-item>
     <el-menu-item index="券商">券商</el-menu-item>
     <el-menu-item index="文章">文章</el-menu-item>
-    <el-menu-item index="工具">工具</el-menu-item>
+    <el-submenu index="工具">
+      <template #title>工具</template>
+      <el-menu-item index="a">a</el-menu-item>
+      <el-menu-item index="b">b</el-menu-item>
+    </el-submenu>
   </el-menu>
 </template>
 
 <script>
-import { ref, watch } from 'vue';
-import { useRouter, useRoute } from 'vue-router'
+import { ref, watch } from "vue";
+import { useRouter, useRoute } from "vue-router";
 
 export default {
-  name: 'head',
+  name: "head",
   setup() {
-    let activeIndex = ref('');
+    let activeIndex = ref("");
     const router = useRouter();
     const route = useRoute();
-
     // 监听路由改变头部tab值
     watch(route, (now) => {
       switch (now.path) {
-        case '/':
-          activeIndex.value = '首页';
+        case "/":
+          activeIndex.value = "首页";
           break;
-        case '/list':
-          activeIndex.value = '申购记录';
+        case "/list":
+          activeIndex.value = "申购记录";
           break;
-        case '/qs':
-          activeIndex.value = '券商';
+        case "/qs":
+          activeIndex.value = "券商";
           break;
-        case '文章':
-          activeIndex.value = '文章';
+        case "文章":
+          activeIndex.value = "文章";
           break;
-        case '工具':
-          activeIndex.value = '工具';
+        case "a":
+          activeIndex.value = "a";
+        case "b":
+          activeIndex.value = "b";
           break;
       }
     });
@@ -54,20 +60,23 @@ export default {
      */
     function handleSelect(key, keyPath) {
       switch (key) {
-        case '首页':
-          router.push('/')
+        case "首页":
+          router.push("/");
           break;
-        case '申购记录':
-          router.push('/list')
+        case "申购记录":
+          router.push("/list");
           break;
-        case '券商':
-          router.push('/qs')
+        case "券商":
+          router.push("/qs");
           break;
-        case '文章':
-          router.push('/')
+        case "文章":
+          router.push("/");
           break;
-        case '工具':
-          router.push('/')
+        case "a":
+          router.push("hkdd");
+          break;
+        case "b":
+          router.push("/usprice");
           break;
       }
     }
@@ -75,7 +84,7 @@ export default {
     return {
       activeIndex,
       handleSelect,
-    }
-  }
-}
+    };
+  },
+};
 </script>

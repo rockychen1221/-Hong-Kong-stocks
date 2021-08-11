@@ -30,14 +30,14 @@
           sortable
           width="120"
           prop="现金认购费"
-          label="现金认购费">
+          label="现金认购">
         <template #default="scope">
           {{ scope.row.现金认购费 === -1 ? '不支持' : scope.row.现金认购费 }}
         </template>
       </el-table-column>
       <el-table-column
           prop="融资认购费"
-          label="融资认购费">
+          label="融资认购">
       </el-table-column>
     </el-table-column>
 
@@ -85,8 +85,8 @@
     <el-table-column label="交易成本">
       <el-table-column
           prop="交易万元佣金"
-          label="交易万元佣金"
-          width="110">
+          label="万元佣金"
+          width="90">
       </el-table-column>
       <el-table-column
           prop="港股平台费"
@@ -94,18 +94,23 @@
       </el-table-column>
       <el-table-column
           sortable
-          width="130"
+          width="110"
           prop="综合交易佣金"
-          label="综合交易佣金">
+          label="综合佣金">
       </el-table-column>
       <el-table-column
           prop="出金手续费"
-          label="出金手续费">
+          label="出金费用">
       </el-table-column>
       <el-table-column
           prop="出金结算时间"
-          label="出金结算时间"
-          width="110">
+          label="出金结算"
+          >
+      </el-table-column>
+      <el-table-column
+          prop="卖出资金可用"
+          label="卖出可用"
+          >
       </el-table-column>
     </el-table-column>
        <!-- <el-table-column
@@ -117,7 +122,7 @@
            </a>
          </template>
     </el-table-column> -->
-       <el-table-column
+       <!-- <el-table-column
            prop="开户链接"
            label="开户链接">
          <template #default="scope">
@@ -126,7 +131,7 @@
            </a>
            <span v-else>开户麻烦,详询</span>
          </template>
-     </el-table-column>
+     </el-table-column> -->
   </el-table>
 </template>
 
