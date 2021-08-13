@@ -3,7 +3,7 @@ import data2020 from "../assets/配售数据2020";
 // import data2019 from "../assets/配售数据2019";
 // import data2018 from "./配售数据2018";
 // import data2017 from "./配售数据2017";
-const data = [...data2020];
+// const data = [...data2020];
 
 function 中签数据格式化(data) {
   let 甲组 = [],
@@ -119,58 +119,60 @@ function 计算甲组平均中签率(data) {
   return 十手后中签数 / 十手后申购数;
 }
 
-data.forEach((ele, index, arr) => {
-  let [甲组, 乙组, 甲组人数, 乙组人数, 每手股数, 招股股数] = 中签数据格式化(
-    ele
-  );
-  ele.甲组 = 甲组;
-  ele.乙组 = 乙组;
-  ele.甲组人数 = 甲组人数;
-  ele.乙组人数 = 乙组人数;
-  ele.总申购人数 = 甲组人数 + 乙组人数;
-  ele.每手股数 = 每手股数;
-  ele.招股股数 = 招股股数;
-  ele.一手金额 = ele.上限招股价 * 每手股数;
-
-  ele.甲组稳中 = 计算甲组稳中(ele);
-  ele.一手中签率 = ele.甲组[0].单手中签率;
-  ele.稳中手数 = ele.甲组稳中.手数;
-
-  ele.公开发售手数 = parseInt((ele.招股股数 / ele.每手股数) * ele.公开发售占比);
-
-  ele.一手占比 = 计算一手占比(ele);
-  ele.一手人数占比 = ele.甲组[0].申购人数 / ele.甲组人数;
-
-  let [甲组申购倍数, 乙组申购倍数] = 计算甲乙组申购倍数(ele);
-  ele.甲组申购倍数 = 甲组申购倍数;
-  ele.乙组申购倍数 = 乙组申购倍数;
-
-  let 一手申购倍数 = ele.甲组[0].申购人数 / ele.公开发售手数;
-
-  // ele.甲组平均中签率 =  ((1 - ele.一手占比) / (ele.甲组申购倍数 - 一手申购倍数)).toFixed(4) - 0;
-  ele.甲组平均中签率 = 计算甲组平均中签率(ele);
-  // 创业板没有乙组
-  if (ele.创业板) {
-    ele.乙组平均中签率 = 0;
-  } else {
-    if (ele.乙组申购倍数 < 1) {
-      ele.乙组平均中签率 = 1;
+export function formart(data){
+  data.forEach((ele, index, arr) => {
+    let [甲组, 乙组, 甲组人数, 乙组人数, 每手股数, 招股股数] = 中签数据格式化(
+      ele
+    );
+    ele.甲组 = 甲组;
+    ele.乙组 = 乙组;
+    ele.甲组人数 = 甲组人数;
+    ele.乙组人数 = 乙组人数;
+    ele.总申购人数 = 甲组人数 + 乙组人数;
+    ele.每手股数 = 每手股数;
+    ele.招股股数 = 招股股数;
+    ele.一手金额 = ele.上限招股价 * 每手股数;
+  
+    ele.甲组稳中 = 计算甲组稳中(ele);
+    ele.一手中签率 = ele.甲组[0].单手中签率;
+    ele.稳中手数 = ele.甲组稳中.手数;
+  
+    ele.公开发售手数 = parseInt((ele.招股股数 / ele.每手股数) * ele.公开发售占比);
+  
+    ele.一手占比 = 计算一手占比(ele);
+    ele.一手人数占比 = ele.甲组[0].申购人数 / ele.甲组人数;
+  
+    let [甲组申购倍数, 乙组申购倍数] = 计算甲乙组申购倍数(ele);
+    ele.甲组申购倍数 = 甲组申购倍数;
+    ele.乙组申购倍数 = 乙组申购倍数;
+  
+    let 一手申购倍数 = ele.甲组[0].申购人数 / ele.公开发售手数;
+  
+    // ele.甲组平均中签率 =  ((1 - ele.一手占比) / (ele.甲组申购倍数 - 一手申购倍数)).toFixed(4) - 0;
+    ele.甲组平均中签率 = 计算甲组平均中签率(ele);
+    // 创业板没有乙组
+    if (ele.创业板) {
+      ele.乙组平均中签率 = 0;
     } else {
-      ele.乙组平均中签率 = 1 / ele.乙组申购倍数;
+      if (ele.乙组申购倍数 < 1) {
+        ele.乙组平均中签率 = 1;
+      } else {
+        ele.乙组平均中签率 = 1 / ele.乙组申购倍数;
+      }
     }
-  }
+  
+    ele.甲组申购金额 = parseInt(
+      (ele.公开发售手数 / 2) * ele.甲组申购倍数 * ele.一手金额
+    );
+    ele.乙组申购金额 = parseInt(
+      (ele.公开发售手数 / 2) * ele.乙组申购倍数 * ele.一手金额
+    );
+    ele.公开申购金额 = parseInt(ele.甲组申购金额 + ele.乙组申购金额);
+    ele.募资金额 = 招股股数 * ele.上限招股价;
+    ele.公开募资金额 = ele.募资金额 * ele.公开发售占比;
+  
+    arr[index] = ele;
+  });
+  return data;
+}
 
-  ele.甲组申购金额 = parseInt(
-    (ele.公开发售手数 / 2) * ele.甲组申购倍数 * ele.一手金额
-  );
-  ele.乙组申购金额 = parseInt(
-    (ele.公开发售手数 / 2) * ele.乙组申购倍数 * ele.一手金额
-  );
-  ele.公开申购金额 = parseInt(ele.甲组申购金额 + ele.乙组申购金额);
-  ele.募资金额 = 招股股数 * ele.上限招股价;
-  ele.公开募资金额 = ele.募资金额 * ele.公开发售占比;
-
-  arr[index] = ele;
-});
-
-export default data;

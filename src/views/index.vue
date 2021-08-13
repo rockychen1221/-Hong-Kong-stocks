@@ -1,5 +1,5 @@
 <template>
-  <h3>申购记录</h3>
+  <h3>申购记录  <el-button type="primary" size="mini" icon="el-icon-download" @click="downloadIPO()" circle></el-button></h3>
   <el-tabs v-model="activeName" tab-position="left" style="height: 800px;" v-loading="loading">
     <el-tab-pane v-for="item in brokerObj.打新记录" :key="item.name"  :label="item.name" :name="item.name">
       <el-table
@@ -172,7 +172,7 @@ import { onMounted, reactive, ref } from "vue";
 import ipoHistory from '../assets/data'
 import data from '../assets/stockList';
 import brokerList from "../assets/brokerList";
-import { 获取IPO数据, 合并IPO数据, 计算打新记录, 历史收益曲线计算 } from '../utils/CreateBroker'
+import { 获取IPO数据, 合并IPO数据, 计算打新记录, 历史收益曲线计算, download } from '../utils/CreateBroker'
 import { createChart, createChart2 } from '../utils/createChart'
 
 export default {
@@ -205,9 +205,16 @@ export default {
       activeName,
       loading,
       getSummaries,
-      tableRowClassName
+      tableRowClassName,
+      downloadIPO
     }
   }
+}
+
+async function downloadIPO(){
+  const ipoData = await 获取IPO数据(ipoHistory);
+  console.log(ipoData)
+  download("IPO_Data", JSON.stringify(ipoData));
 }
 
 // 合计

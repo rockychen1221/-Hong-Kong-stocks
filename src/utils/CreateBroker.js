@@ -187,7 +187,7 @@ export async function 获取IPO数据(ipoHistory) {
 
   const ipoHistoryNameList = ipoHistory.map(ele => ele.name);
   const otherIpoData = requestData.history.filter(ele => {
-    if (ipoHistoryNameList.indexOf(ele) === -1) {
+    if (ipoHistoryNameList.indexOf(ele.name) === -1) {
       return ele;
     }
   });
@@ -279,7 +279,7 @@ export function 计算打新记录(recording, brokerList) {
  * @param filename 文件名
  * @param text 文件内容
  */
-function download(filename, text) {
+export function download(filename, text) {
   let element = document.createElement('a');
   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + 'export default ' + encodeURIComponent(text));
   element.setAttribute('download', filename);
