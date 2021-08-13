@@ -23,6 +23,11 @@ const routes = [
     name: 'hkdd',
     component: () => import("./views/hkdd.vue"),
   },
+  {
+    path: '/usprice',
+    name: 'usprice',
+    component: () => import("./views/usprice.vue"),
+  },
   // 配置404页面
   {
     path: "/:catchAll(.*)",

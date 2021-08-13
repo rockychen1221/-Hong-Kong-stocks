@@ -11,11 +11,10 @@
     <el-menu-item index="首页">首页</el-menu-item>
     <el-menu-item index="申购记录">申购记录</el-menu-item>
     <el-menu-item index="券商">券商</el-menu-item>
-    <el-menu-item index="文章">文章</el-menu-item>
     <el-submenu index="工具">
       <template #title>工具</template>
-      <el-menu-item index="a">a</el-menu-item>
-      <el-menu-item index="b">b</el-menu-item>
+      <el-menu-item index="港股行情">港股行情</el-menu-item>
+      <el-menu-item index="美股行情">美股行情</el-menu-item>
     </el-submenu>
   </el-menu>
 </template>
@@ -42,13 +41,11 @@ export default {
         case "/qs":
           activeIndex.value = "券商";
           break;
-        case "文章":
-          activeIndex.value = "文章";
+        case "/hkdd":
+          activeIndex.value = "港股行情";
           break;
-        case "a":
-          activeIndex.value = "a";
-        case "b":
-          activeIndex.value = "b";
+        case "/usprice":
+          activeIndex.value = "美股行情";
           break;
       }
     });
@@ -69,13 +66,10 @@ export default {
         case "券商":
           router.push("/qs");
           break;
-        case "文章":
-          router.push("/");
+        case "港股行情":
+          router.push("/hkdd");
           break;
-        case "a":
-          router.push("hkdd");
-          break;
-        case "b":
+        case "美股行情":
           router.push("/usprice");
           break;
       }
