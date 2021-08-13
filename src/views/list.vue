@@ -1,6 +1,6 @@
 <template>
   <div class="hello" style="margin: 0 10px">
-    <h3>配售基础资料,2020年</h3>
+    <h3>配售基础资料,2021年</h3>
     <div class="box">
       <el-input
         class="input"
@@ -52,7 +52,7 @@
 <script>
 // 配售数据
 import { onMounted, reactive, ref, watch } from "vue";
-import {formart } from "../utils/CreateData";
+import { formart } from "../utils/CreateData";
 import stockData from "../assets/data";
 
 const IPO记录 = (
@@ -138,7 +138,7 @@ async function run(arr) {
   }
 
   let IPO记录列表 = dataIPO.map((ele) => {
-    let {
+    const {
       codes_rate,
       group,
       head_hammer,
@@ -159,14 +159,12 @@ async function run(arr) {
       yellowForm,
     } = ele;
 
-    console.log(ele)
-
+    const index = name.indexOf("－") < 0 ? name.length : name.indexOf("－");
     const otherIpoData = stockData.filter((ele) => {
-      if (ele.name === name) {
+      if (ele.name.search(name.substring(0, index)) > -1) {
         return ele;
       }
     });
-    console.log(otherIpoData)
     return IPO记录(
       name,
       otherIpoData[0] ? otherIpoData[0].symbol : "",
@@ -174,10 +172,15 @@ async function run(arr) {
       price_ceiling,
       ipo_pricing,
       "",
-      rate,
+      otherIpoData[0]
+        ? Number(otherIpoData[0].callback_ratio) == 0
+          ? Number(otherIpoData[0].raise_money) /
+            Number(otherIpoData[0].raise_money_amount)
+          : Number(otherIpoData[0].callback_ratio)
+        : 0,
       subscribed,
       placement_times,
-      "",
+      otherIpoData[0] ? (otherIpoData[0].market_name == "主板" ? 1 : 0) : 0,
       list
     );
   });
@@ -195,8 +198,10 @@ export default {
 
     onMounted(async () => {
       const ipoData = await run(stockData);
-      console.log(formart(ipoData));
-      // dataObj.tableData=formart(ipoData);
+      console.log(ipoData);
+
+      // console.log(formart(ipoData));
+      dataObj.tableData = formart(ipoData);
     });
 
     // 搜索配售券商
@@ -271,10 +276,10 @@ function clickSearch(selectName, dataObj) {
 
 function filters(value, arg1) {
   if (arg1 === "一手金额") {
-    return value.toFixed(0);
+    return Number(value).toFixed(0);
   }
   if (/公开配售倍数|乙组申购倍数|甲组申购倍数/.test(arg1)) {
-    return value.toFixed(1);
+    return Number(value).toFixed(1);
   }
   if (
     /一手中签率|甲组平均中签率|乙组平均中签率|公开发售占比|一手占比|一手人数占比/.test(

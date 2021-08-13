@@ -213,7 +213,6 @@ export default {
 
 async function downloadIPO(){
   const ipoData = await 获取IPO数据(ipoHistory);
-  console.log(ipoData)
   download("IPO_Data", JSON.stringify(ipoData));
 }
 
