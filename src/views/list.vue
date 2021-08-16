@@ -1,6 +1,6 @@
 <template>
   <div class="hello" style="margin: 0 10px">
-    <h3>配售基础资料,2021年</h3>
+    <h3>配售基础资料</h3>
     <div class="box">
       <el-input
         class="input"
@@ -26,6 +26,8 @@
       border
       height="700px"
       id="tableData2"
+      :row-class-name="myJoinActivity"
+      v-loading="loading"
     >
       <el-table-column
         prop="name"
@@ -40,6 +42,7 @@
         :prop="i"
         :label="i"
         width="130"
+        align="right"
       >
         <template #default="scope">
           {{ filters(scope.row[i], i) }}
@@ -169,7 +172,7 @@ async function run(arr) {
       name,
       otherIpoData[0] ? otherIpoData[0].symbol : "",
       otherIpoData[0] ? otherIpoData[0].listing_date : "",
-      price_ceiling,
+      ipo_pricing,
       ipo_pricing,
       "",
       otherIpoData[0]
@@ -192,16 +195,16 @@ export default {
   name: "list",
   setup() {
     const dataObj = reactive({
-      // 配售基础资料表格
+      // 基础资料表格
       tableData: dataIPO,
     });
 
+    let loading = ref(true);
+
     onMounted(async () => {
       const ipoData = await run(stockData);
-      console.log(ipoData);
-
-      // console.log(formart(ipoData));
       dataObj.tableData = formart(ipoData);
+      loading.value = false;
     });
 
     // 搜索配售券商
@@ -244,6 +247,8 @@ export default {
       selectName,
       clickSearch,
       filters,
+      myJoinActivity,
+      loading,
     };
   },
 };
@@ -291,8 +296,17 @@ function filters(value, arg1) {
   if (/甲组申购金额|乙组申购金额|公开申购金额|募资金额/.test(arg1)) {
     return (value / 100000000).toFixed(2) + "亿";
   }
-
   return value;
+}
+
+// 我的活动
+function myJoinActivity({ row, rowIndex }) {
+  stockData.forEach((l) => {
+    if (row.name == l.name) {
+      return "red-cell";
+    }
+  });
+  return "";
 }
 </script>
 

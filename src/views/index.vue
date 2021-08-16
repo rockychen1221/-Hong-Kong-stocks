@@ -18,6 +18,7 @@
         <el-table-column
             prop="打新手数"
             label="打新手数"
+            align="right"
             sortable>
           <template #default="scope">
             {{ scope.row.打新类型.split('打新')[0] + scope.row.打新手数 + '手' }}
@@ -25,7 +26,8 @@
         </el-table-column>
         <el-table-column
             prop="申购金额"
-            label="融资倍数">
+            label="融资倍数"
+            align="right">
           <template #default="scope">
             {{ scope.row.融资比例 !== 1 ? (1 / (1 - scope.row.融资比例)).toFixed(0) + '倍' : '白嫖' }}
           </template>
@@ -33,7 +35,8 @@
         <el-table-column
             sortable
             prop="中签数"
-            label="中签数">
+            label="中签数"
+            align="right">
           <template #default="scope">
             {{ scope.row.中签数 ? scope.row.中签数 + '手' : '' }}
           </template>
@@ -41,7 +44,8 @@
         <el-table-column
             sortable
             prop="资金占用"
-            label="资金占用">
+            label="资金占用"
+            align="right">
           <template #default="scope">
             {{scope.row.资金占用.toFixed(0) + '元'}}
           </template>
@@ -49,15 +53,26 @@
         <el-table-column
             sortable
             prop="申购成本"
-            label="申购成本">
+            label="申购成本"
+            align="right">
           <template #default="scope">
             {{scope.row.申购成本.toFixed(0) + '元'}}
           </template>
         </el-table-column>
         <el-table-column
             sortable
+            prop="申购金额"
+            label="申购金额"
+            align="right">
+          <template #default="scope">
+            {{scope.row.申购金额.toFixed(0) + '元'}}
+          </template>
+        </el-table-column>
+        <el-table-column
+            sortable
             prop="盈亏"
-            label="盈亏">
+            label="盈亏"
+            align="right">
           <template #default="scope">
             {{scope.row.盈亏.toFixed(0) + '元'}}
           </template>
@@ -65,7 +80,8 @@
         <el-table-column
             sortable
             prop="百分比收益"
-            label="百分比收益">
+            label="百分比收益"
+            align="right">
           <template #default="scope">
             {{ (scope.row.百分比收益 * 100).toFixed(2) + '%' }}
           </template>
@@ -91,14 +107,16 @@
     <el-table-column
         sortable
         prop="手数"
-        label="打新手数">
+        label="打新手数"
+        align="right">
       <template #default="scope">
         {{ scope.row.手数 + '手' }}
       </template>
     </el-table-column>
     <el-table-column
         prop="申购金额"
-        label="平均融资倍数">
+        label="平均融资倍数"
+        align="right">
       <template #default="scope">
         {{ scope.row.融资倍数 !== Infinity ? scope.row.融资倍数.toFixed(0) + '倍' : '白嫖' }}
       </template>
@@ -106,7 +124,8 @@
     <el-table-column
         sortable
         prop="中签数"
-        label="中签数">
+        label="中签数"
+        align="right">
       <template #default="scope">
         {{ scope.row.中签数 ? scope.row.中签数 + '手' : '' }}
       </template>
@@ -114,7 +133,8 @@
     <el-table-column
         sortable
         prop="资金占用"
-        label="资金占用">
+        label="资金占用"
+        align="right">
       <template #default="scope">
         {{ scope.row.资金占用.toFixed(0) + '元' }}
       </template>
@@ -122,15 +142,26 @@
     <el-table-column
         sortable
         prop="申购成本"
-        label="申购成本">
+        label="申购成本"
+        align="right">
       <template #default="scope">
         {{scope.row.申购成本.toFixed(0) + '元'}}
+      </template>
+    </el-table-column>
+     <el-table-column
+        sortable
+        prop="申购金额"
+        label="申购金额"
+        align="right">
+      <template #default="scope">
+        {{ scope.row.申购金额.toFixed(0) + '元'}}
       </template>
     </el-table-column>
     <el-table-column
         sortable
         prop="盈亏"
-        label="盈亏">
+        label="盈亏"
+        align="right">
       <template #default="scope">
         {{ scope.row.盈亏.toFixed(0) + '元' }}
       </template>
@@ -138,22 +169,16 @@
     <el-table-column
         sortable
         prop="百分比收益"
-        label="百分比收益">
+        label="百分比收益"
+        align="right">
       <template #default="scope">
         {{ (scope.row.百分比收益 * 100).toFixed(2) + '%' }}
       </template>
     </el-table-column>
     <el-table-column
-        sortable
-        prop="申购金额"
-        label="申购金额">
-      <template #default="scope">
-        {{ scope.row.申购金额.toFixed(0) + '元'}}
-      </template>
-    </el-table-column>
-    <el-table-column
         prop="上市日期"
-        label="上市日期">
+        label="上市日期"
+        align="right">
     </el-table-column>
   </el-table>
 
@@ -161,8 +186,8 @@
   <p>股票未中签或股票出售后才记录收益</p>
   <div id="main" style="width: 100%;height:400px;"></div>
 
-  <!-- <h3>券商收益</h3>
-  <div id="main2" style="width: 100%;height:400px;"></div> -->
+  <h3>券商收益</h3>
+  <div id="main2" style="width: 100%;height:400px;"></div>
 
 </template>
 
@@ -172,7 +197,7 @@ import { onMounted, reactive, ref } from "vue";
 import ipoHistory from '../assets/data'
 import data from '../assets/stockList';
 import brokerList from "../assets/brokerList";
-import { 获取IPO数据, 合并IPO数据, 计算打新记录, 历史收益曲线计算, download } from '../utils/CreateBroker'
+import { 获取IPO数据, 合并IPO数据, 计算打新记录, 历史收益曲线计算, download,countBrokerProfit } from '../utils/CreateBroker'
 import { createChart, createChart2 } from '../utils/createChart'
 
 export default {
@@ -197,7 +222,9 @@ export default {
         收益利润,
       } = 历史收益曲线计算(brokerObj.打新记录);
       createChart('main', 收益日期, 收益利润);
-      // createChart2('main2', 收益利润, 'line', '收益');
+
+      const 券商收益 = countBrokerProfit(brokerObj.打新记录)
+      createChart2('main2', ["申购成本","盈亏"], 券商收益, '收益');
     });
 
     return {
@@ -206,6 +233,7 @@ export default {
       loading,
       getSummaries,
       tableRowClassName,
+      tableCellClassName,
       downloadIPO
     }
   }
@@ -235,7 +263,7 @@ function getSummaries(param) {
           return prev;
         }
       }, 0);
-      if (index === 4 || index === 5 || index === 6 || index === 8) {
+      if (index === 4 || index === 5 || index === 6 || index === 7 ) {
         sums[index] = sums[index].toFixed(0) + '元';
       } else if(index === 1 || index === 3) {
         sums[index] = sums[index] + '手';
@@ -243,12 +271,12 @@ function getSummaries(param) {
     }
   });
   // 总百分比收益
-  if(sums[6] && sums[4]) {
-    sums[7] = (sums[6].split('元')[0] / sums[4].split('元')[0] * 100).toFixed(2) + '%';
+  if(sums[7] && sums[4]) {
+    sums[8] = (sums[7].split('元')[0] / sums[4].split('元')[0] * 100).toFixed(2) + '%';
   }
   // 总融资倍数
-  if(sums[2] && sums[4] && sums[5]) {
-    sums[2] = ((sums[2] - sums[5].split('元')[0]) / (sums[4].split('元')[0] - sums[5].split('元')[0])).toFixed(2) + '倍';
+  if(sums[2] && sums[4]) {
+    sums[2] = (sums[2] / sums[4].split('元')[0]).toFixed(2) + '倍';
   }
   return sums;
 }
@@ -261,10 +289,24 @@ function tableRowClassName({row, rowIndex}) {
   return '';
 }
 
+// 盈亏变色
+function tableCellClassName({row, rowIndex}) {
+  if (row.盈亏 > 0) {
+    return 'red-cell';
+  }
+  return 'green-cell';
+}
+
 </script>
 
 <style>
 .el-table .success-row {
   background: #f0f9eb;
+}
+.el-table .red-cell {
+  background: red;
+}
+.el-table .green-cell {
+  background-color: green;
 }
 </style>
