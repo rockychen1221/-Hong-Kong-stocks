@@ -24,7 +24,7 @@
       :data="dataObj.tableData"
       style="width: 100%"
       border
-      height="700px"
+      height="800px"
       id="tableData2"
       :row-class-name="myJoinActivity"
       v-loading="loading"
@@ -32,7 +32,7 @@
       <el-table-column
         prop="name"
         label="股票/资料"
-        width="160"
+        width="150"
         fixed
       ></el-table-column>
       <el-table-column
@@ -212,6 +212,8 @@ export default {
 
     // 配售基础资料表格Key List
     const tableKeyList2 = [
+      "股票代号",
+      "上市日期",
       "一手中签率",
       "稳中手数",
       "一手金额",
@@ -230,8 +232,7 @@ export default {
       "募资金额",
       "公开募资金额",
       "公开发售手数",
-      "股票代号",
-      "上市日期",
+      
     ];
 
     // 如果搜索值为空,还原table
