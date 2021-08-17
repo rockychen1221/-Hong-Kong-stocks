@@ -438,15 +438,19 @@ export function countBrokerProfit(data) {
       let o = { ...item }
       list.push(o)
       res.set(item.券商, o)
-      series.series.push(seriesObj(item.券商, [o.申购成本, o.盈亏]));
     }
     return list
   }, []);
 
+  series.xAxis = Array.from(res.keys());
 
+  let 申购成本 = [], 盈亏 = [], 中签数 = [];
+  res.forEach((value, key, arr) => {
+    申购成本.push(Number(value.申购成本).toFixed(0))
+    盈亏.push(Number(value.盈亏).toFixed(0))
+    中签数.push(Number(value.中签数).toFixed(0))
+  })
 
-series.xAxis = Array.from(res.keys());
-//series.series = s;
-
-console.log(series)
+  series.series = [seriesObj("申购成本", 申购成本), seriesObj("盈亏", 盈亏), seriesObj("中签数", 中签数)];
+  return series;
 }
