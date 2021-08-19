@@ -12,7 +12,7 @@
   <el-tabs
     v-model="activeName"
     tab-position="left"
-    style="height: 800px"
+    style="height: 600px"
     v-loading="loading"
   >
     <el-tab-pane
@@ -178,8 +178,6 @@
 
   <h3>券商收益</h3>
   <div id="main2" style="width: 100%; height: 400px"></div>
-
-
 </template>
 
 <script>
@@ -278,7 +276,7 @@ function getSummaries(param) {
   }
   // 总融资倍数
   if (sums[2] && sums[4]) {
-    sums[2] = (sums[2] / sums[4].split("元")[0]).toFixed(2) + "倍";
+    sums[2] = (sums[2] / sums[4].split("元")[0]).toFixed(0) + "倍";
   }
   return sums;
 }
